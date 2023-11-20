@@ -1,0 +1,66 @@
+﻿<Window x:Class="Lista.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lista"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="550">
+    <Grid Background="DarkSlateGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Background="DarkSlateGray" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+            <TextBox x:Name="firstNameTextBox"  GotFocus="firstNameTextBox_OnGotFocus" Text="Imie" Width="100" Margin="0,0,5,0" />
+            <TextBox x:Name="lastNameTextBox" GotFocus="lastNameTextBox_OnGotFocus" Text="Nazwisko" Width="100" Margin="0,0,5,0"/>
+            <TextBox x:Name="ageTextBox" GotFocus="ageTextBox_OnGotFocus" Text="Wiek" Width="50" Margin="0,0,5,0"/>
+            <ComboBox x:Name="genderComboBox" Width="100" Margin="0,0,5,0" Text="Płeć">
+                <ComboBoxItem Content="Mężczyzna"/>
+                <ComboBoxItem Content="Kobieta"/>
+                <ComboBoxItem Content="Inna"/>
+            </ComboBox>
+            <Button Content="Dodaj" Width="75" Click="AddButton_Click"/>
+            <Button Content="Edytuj" Margin="0,0,5,0" Click="EditButton_Click"/>
+        </StackPanel>
+
+        <ListBox x:Name="peopleListBox" Grid.Row="1" Margin="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirstName}" Margin="0,0,5,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Gender}" Value="Kobieta">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Gender}" Value="Mężczyzna">
+                                            <Setter Property="Foreground" Value="Blue"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Gender}" Value="Inna">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding LastName}" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Age}"/>
+                        <TextBlock Text="{Binding Gender}" Margin="0,0,5,0"/>
+                        <Button Content="Usuń" Margin="5,0,0,0" Click="DeleteButton_Click"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Zapisz" Width="75" Click="SaveButton_Click"/>
+            <Button Content="Załaduj" Width="75" Click="LoadButton_Click"/>
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>
